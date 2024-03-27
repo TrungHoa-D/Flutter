@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 void main() {
-  runApp(const BloodApp());
+  runApp(const HaUIApp());
 }
 
 ///Screen 1
