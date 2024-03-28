@@ -43,7 +43,7 @@ class Caculation {
     num1 = Random().nextInt(11);
     num2 = Random().nextInt(11);
     int signTh = Random().nextInt(3);
-    result = Random().nextInt(21);
+    int isRight = Random().nextInt(3);
     if (signTh == 0) {
       sign = "+";
     } else if (signTh == 1) {
@@ -53,17 +53,25 @@ class Caculation {
     } else {
       sign = "/";
     }
-    isCorrect = false;
-    if (sign == "+" && (num1 + num2 == result)) {
+    int ans = 0;
+    if (sign == "+") {
+      ans = num1 + num2;
+    } else if (sign == "-") {
+      ans = num1 - num2;
+    } else if (sign == "*") {
+      ans = num1 * num2;
+    } else if (sign == "/") {
+      ans = num1 ~/ num2;
+    }
+    if (isRight == 2) {
       isCorrect = true;
-    } else if (sign == "-" && (num1 - num2 == result)) {
-      isCorrect = true;
-    } else if (sign == "*" && (num1 * num2 == result)) {
-      isCorrect = true;
-    } else if (sign == "/" && (num1 ~/ num2 == result)) {
-      isCorrect = true;
+      result = ans;
     } else {
       isCorrect = false;
+      result = Random().nextInt(20);
+      while (ans == result) {
+        result = Random().nextInt(20);
+      }
     }
   }
 
