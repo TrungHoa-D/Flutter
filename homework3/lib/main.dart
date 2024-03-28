@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class Caculation {
@@ -99,6 +99,42 @@ class _MyAppState extends State<MyApp> {
   int score = 0;
   int highScore = 0;
   Caculation caculation = Caculation.zero();
+  final int _initialCounter = 10; // Thời gian đếm ngược ban đầu
+  late int _counter;
+  late Timer _timer;
+  bool _timerStarted = false;
+  @override
+  void initState() {
+    super.initState();
+    _counter = _initialCounter;
+    //startTimer();
+  }
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (timer) {
+      if (_counter < 1) {
+        _counter = _initialCounter; // Đặt lại _counter về giá trị ban đầu
+        timer.cancel();
+        // Xử lý khi đếm ngược kết thúc
+        setState(() {
+          highScore = max(highScore, score);
+          status = 2;
+        });
+      } else {
+        setState(() {
+          _counter -= 1;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -114,16 +150,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _traloidung() {
-    setState(() {
-      score++;
-      caculation.generate();
-      // load 1 phép tính mới
-    });
+    _counter = _initialCounter; // Đặt lại _counter về giá trị ban đầu
+    _timer.cancel();
+    score++;
+    caculation.generate();
+    startTimer(); // load 1 phép tính mới
   }
 
   void _traloisai() {
+    _counter = _initialCounter; // Đặt lại _counter về giá trị ban đầu
+    _timer.cancel();
     highScore = max(highScore, score);
     status = 2;
+    _timerStarted = false;
     setState(() {});
   }
 
@@ -187,6 +226,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Container _playingScreen() {
+    if (!_timerStarted) {
+      startTimer();
+      _timerStarted = true;
+    }
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -201,10 +244,19 @@ class _MyAppState extends State<MyApp> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            '$score',
-            style: const TextStyle(fontSize: 50, color: Colors.white),
-            textAlign: TextAlign.right,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '$_counter',
+                style: const TextStyle(fontSize: 50, color: Colors.white),
+              ),
+              Text(
+                '$score',
+                style: const TextStyle(fontSize: 50, color: Colors.white),
+                textAlign: TextAlign.right,
+              ),
+            ],
           ),
           Text(
             caculation.toString(),
