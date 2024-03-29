@@ -162,7 +162,7 @@ class _MyAppState extends State<MyApp> {
     _timer.cancel();
     highScore = max(highScore, score);
     status = 2;
-    _timerStarted = false;
+    //_timerStarted = false;
     setState(() {});
   }
 
@@ -228,6 +228,7 @@ class _MyAppState extends State<MyApp> {
   Container _playingScreen() {
     if (!_timerStarted) {
       startTimer();
+      caculation.generate();
       _timerStarted = true;
     }
     return Container(
@@ -335,6 +336,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
+                    _timerStarted = false;
                     score = 0;
                     status = 1;
                   });
@@ -348,6 +350,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
+                    _timerStarted = false;
                     score = 0;
                     status = 0;
                   });
