@@ -66,20 +66,23 @@ class Board extends StatelessWidget {
                   color: Colors.black,
                 )),
           ],
-          bottom: const TabBar(isScrollable: true, tabs: [
-            Tab(
-              text: "All",
-            ),
-            Tab(
-              text: "Uncompleted",
-            ),
-            Tab(
-              text: "Completed",
-            ),
-            Tab(
-              text: "Favourite",
-            ),
-          ]),
+          bottom: const TabBar(
+              isScrollable: true,
+              //tabAlignment: Ta,
+              tabs: [
+                Tab(
+                  text: "All",
+                ),
+                Tab(
+                  text: "Uncompleted",
+                ),
+                Tab(
+                  text: "Completed",
+                ),
+                Tab(
+                  text: "Favourite",
+                ),
+              ]),
         ),
         body: Padding(
           padding: const EdgeInsets.all(10),
