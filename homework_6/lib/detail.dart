@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:homework_6/data.dart';
-import 'package:homework_6/main.dart';
 import 'package:provider/provider.dart';
 import 'package:homework_6/caculate.dart';
 
