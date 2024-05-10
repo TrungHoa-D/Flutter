@@ -30,7 +30,7 @@ class PersonServices {
       body: jsonEncode(person.toJson()),
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       //print('Person pushed successfully');
     } else {
       throw Exception(
@@ -48,7 +48,7 @@ class PersonServices {
       body: jsonEncode(person.toJson()),
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       //print('Person pushed successfully');
     } else {
       throw Exception(
@@ -65,7 +65,7 @@ class PersonServices {
       },
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       //print('Person pushed successfully');
     } else {
       throw Exception(

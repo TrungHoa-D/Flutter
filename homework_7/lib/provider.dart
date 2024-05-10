@@ -28,7 +28,7 @@ class PersonProvider extends ChangeNotifier {
     thisPerson = people[index];
     presentProvince = province.findIDByName(thisPerson.provice);
     isLoading = false;
-    notifyListeners();
+    //notifyListeners();
   }
 
   void updatePerson() async {
